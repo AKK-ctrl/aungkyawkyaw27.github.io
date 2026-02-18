@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aung Kyaw Kyaw — Mechanical & Subsea Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep: #020b14;
+  --ocean: #040f1e;
+  --panel: #071828;
+  --border: #0e3358;
+  --accent: #00c6ff;
+  --accent2: #0077b6;
+  --hot: #00ffe0;
+  --warn: #f4a261;
+  --text: #c8dce8;
+  --muted: #4a6a80;
+  --white: #f0f8ff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── SCANLINE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,198,255,0.015) 2px,
+    rgba(0,198,255,0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  background: rgba(2,11,20,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.nav-logo span { color: var(--muted); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 120px 48px 80px;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0,198,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,198,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+.hero-glow {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,119,182,0.15) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.hero-tag::before {
+  content: '// ';
+  color: var(--muted);
+}
+
+.hero-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.9;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.35s forwards;
+}
+
+.hero-name em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--accent);
+}
+
+.hero-subtitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 300;
+  font-size: clamp(18px, 2.5vw, 28px);
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.65s forwards;
+}
+
+.stat {
+  border-left: 2px solid var(--accent);
+  padding-left: 16px;
+}
+
+.stat-value {
+  font-family: 'Space Mono', monospace;
+  font-size: 28px;
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--deep);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: var(--hot);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn-outline:hover {
+  background: rgba(0,198,255,0.08);
+  transform: translateY(-2px);
+}
+
+/* ─── VIDEO SECTION ─── */
+.video-section {
+  padding: 80px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-label::before { content: '// '; color: var(--muted); }
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 56px);
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 40px;
+  line-height: 1;
+}
+
+.video-wrapper {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.video-wrapper::before {
+  content: 'POOL TEST — 1.2 Hz — FINAL RUN';
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  z-index: 2;
+  background: rgba(2,11,20,0.8);
+  padding: 4px 10px;
+}
+
+.video-wrapper video {
+  width: 100%;
+  display: block;
+  max-height: 600px;
+  object-fit: cover;
+}
+
+.video-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+}
+
+.video-meta-item {
+  padding: 20px 24px;
+  border-right: 1px solid var(--border);
+}
+
+.video-meta-item:last-child { border-right: none; }
+
+.vmi-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.vmi-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--hot);
+}
+
+/* ─── ABOUT ─── */
+.about-section {
+  padding: 100px 48px;
+  background: var(--ocean);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.about-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.about-text p strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.about-text .highlight {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 32px;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 24px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-item:last-child::before { display: none; }
+
+.tl-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--deep);
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.tl-dot.hot { border-color: var(--hot); box-shadow: 0 0 12px rgba(0,255,224,0.3); }
+
+.tl-year {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.tl-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+
+.tl-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ─── FYP DEEP DIVE ─── */
+.fyp-section {
+  padding: 100px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.fyp-hero-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 48px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.fyp-hero-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 300px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,198,255,0.03));
+  pointer-events: none;
+}
+
+.fyp-badge {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--deep);
+  background: var(--accent);
+  padding: 4px 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.fyp-title-big {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 4vw, 48px);
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.fyp-meta-row {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.fyp-meta-chip {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+}
+
+.discipline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 48px;
+}
+
+.discipline-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.discipline-card:hover {
+  border-color: var(--accent);
+  background: rgba(0,198,255,0.04);
+}
+
+.disc-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.disc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.disc-detail {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.disc-result {
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--hot);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 48px;
+}
+
+.result-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 32px;
+}
+
+.result-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(14,51,88,0.4);
+}
+
+.result-row:last-child { border-bottom: none; }
+
+.result-key {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.result-val {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: var(--hot);
+  font-weight: 700;
+}
+
+.result-val.normal { color: var(--text); font-weight: 400; }
+
+/* ─── SKILLS / DISCIPLINES ─── */
+.skills-section {
+  padding: 100px 48px;
+  background: var(--ocean);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.skills-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.proficiency-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.prof-domain {
+  border-left: 2px solid var(--border);
+  padding-left: 24px;
+}
+
+.prof-domain-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+
+.skill-bar-item {
+  margin-bottom: 16px;
+}
+
+.skill-bar-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.skill-name {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.skill-pct {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.skill-bar-track {
+  height: 3px;
+  background: var(--border);
+  position: relative;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 0;
+}
+
+.skill-bar-fill.hot-fill {
+  background: linear-gradient(90deg, var(--accent2), var(--hot));
+}
+
+/* ─── ACHIEVEMENTS ─── */
+.achievements-section {
+  padding: 100px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+
+.ach-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 36px 28px;
+  position: relative;
+}
+
+.ach-number {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border);
+  position: absolute;
+  top: 16px;
+  right: 20px;
+}
+
+.ach-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.ach-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.ach-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.ach-tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── CERTIFICATIONS ─── */
+.certs-section {
+  padding: 80px 48px;
+  background: var(--ocean);
+  border-top: 1px solid var(--border);
+}
+
+.certs-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.certs-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.cert-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 20px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.cert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.cert-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.cert-issuer {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ─── CONTACT ─── */
+.contact-section {
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: 'CONTACT';
+  position: absolute;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 200px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(14,51,88,0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.contact-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.contact-tagline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 48px);
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+
+.contact-tagline em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.contact-desc {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.contact-link:hover {
+  border-color: var(--accent);
+  background: rgba(0,198,255,0.05);
+}
+
+.contact-link-icon {
+  font-size: 20px;
+}
+
+.contact-link-text {
+  flex: 1;
+}
+
+.contact-link-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.contact-link-value {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.contact-link-arrow {
+  font-size: 16px;
+  color: var(--accent);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 24px 48px;
+  background: var(--ocean);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.footer-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--hot);
+  letter-spacing: 0.1em;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hot);
+  animation: pulse 2s infinite;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero, .video-section, .fyp-section, .achievements-section, .contact-section, .about-section, .skills-section, .certs-section { padding-left: 24px; padding-right: 24px; }
+  .about-inner, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .discipline-grid, .ach-grid, .certs-list { grid-template-columns: 1fr; }
+  .results-grid, .proficiency-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; gap: 24px; }
+  .video-meta { grid-template-columns: repeat(2, 1fr); }
+  .video-meta-item:nth-child(2) { border-right: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AKK <span>/ Engineer</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#fyp">FYP</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Mechanical &amp; Subsea Engineer — Singapore</div>
+    <h1 class="hero-name">Aung<br>Kyaw <em>Kyaw</em></h1>
+    <div class="hero-subtitle">BEng (Hons) First Class · Top Graduate 2025 · 5 Yrs Petroleum Engineering</div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">3.8</div>
+        <div class="stat-label">GPA / 4.0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">~10N</div>
+        <div class="stat-label">Thruster Force</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">5 Yrs</div>
+        <div class="stat-label">Petroleum Background</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">7 Disciplines</div>
+        <div class="stat-label">In Single FYP</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#fyp" class="btn btn-primary">View FYP Project</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video" style="padding: 80px 48px; max-width: 1100px; margin: 0 auto;">
+  <div class="reveal">
+    <div class="section-label">Live Demonstration</div>
+    <h2 class="section-title">See It Move</h2>
+  </div>
+  <div class="reveal video-wrapper" style="margin-top: 0;">
+    <video controls preload="metadata" poster="">
+      <source src="demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-meta">
+      <div class="video-meta-item">
+        <div class="vmi-label">Achieved Speed</div>
+        <div class="vmi-value">7.6 cm/s</div>
+      </div>
+      <div class="video-meta-item">
+        <div class="vmi-label">Operating Frequency</div>
+        <div class="vmi-value">1.2 Hz</div>
+      </div>
+      <div class="video-meta-item">
+        <div class="vmi-label">Projected @ 5 Hz</div>
+        <div class="vmi-value">12 cm/s</div>
+      </div>
+      <div class="video-meta-item">
+        <div class="vmi-label">Buoyancy State</div>
+        <div class="vmi-value">Neutral</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <div class="section-label">Background</div>
+      <h2 class="section-title">The Engineer Behind The Robot</h2>
+      <p>
+        I'm a <strong>Mechanical Engineering graduate</strong> with a background that doesn't follow a straight line — and that's exactly what makes me different. Before entering mechanical engineering, I spent five years studying <strong>Petroleum Engineering</strong> at Yangon Technological University, completing a field internship in Myanmar's Mann Oil & Gas Field.
+      </p>
+      <p>
+        In 2021, a military coup in Myanmar forced me to pause everything. Rather than stop, I <span class="highlight">restarted</span> — relocating to Singapore, retraining, and earning a <strong>First Class Honours</strong> degree in just two years, winning <strong>Top Graduate 2025</strong>.
+      </p>
+      <p>
+        That journey gave me something most engineers don't have: <strong>real petroleum field experience</strong>, deep mechanical engineering fundamentals, hands-on robotics prototyping, and the resilience that comes from rebuilding from scratch. I'm looking for my first role in <strong>offshore, subsea, or marine engineering</strong> where that rare combination has real value.
+      </p>
+      <p style="margin-top: 28px;">
+        <strong>IELTS 7.5</strong> &nbsp;·&nbsp; Open to relocation &nbsp;·&nbsp; Available immediately
+      </p>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div>
+          <div class="tl-year">2015 – 2020</div>
+          <div class="tl-title">Petroleum Engineering — YTU Myanmar</div>
+          <div class="tl-desc">5 years studying drilling, reservoir engineering, offshore systems, well testing, and PLC programming. GPA 3.5/4.0. VP then President of SPE Student Chapter.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div>
+          <div class="tl-year">2019</div>
+          <div class="tl-title">Field Internship — MPRL E&P</div>
+          <div class="tl-desc">6 months in Mann Oil &amp; Gas Field. Operated Echometer &amp; dynamometer tools, downhole tools inspection, pump performance analysis, gas metering systems.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div>
+          <div class="tl-year">2019</div>
+          <div class="tl-title">Woodside ROV Challenge — 🏆 Winner</div>
+          <div class="tl-desc">ROV Co-Pilot & Hardware Head. Won industry competition involving valve isolation, subsea equipment retrieval, immersed sea mine removal, flange measurement.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot"></div>
+        <div>
+          <div class="tl-year">2021</div>
+          <div class="tl-title">Military Coup — Myanmar</div>
+          <div class="tl-desc">Forced to pause studies and leave Myanmar. Chose to restart from a position of strength rather than stop.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-dot hot"></div>
+        <div>
+          <div class="tl-year">2023 – 2025</div>
+          <div class="tl-title">BEng Mechanical — Coventry Univ. Singapore</div>
+          <div class="tl-desc">First Class Honours. GPA 3.8/4.0. <strong style="color:var(--hot)">Top Graduate 2025.</strong> FYP deemed "near impossible to finish in time" — delivered a working, pool-tested prototype. IEEE publication in progress.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FYP DEEP DIVE -->
+<section id="fyp" class="fyp-section">
+  <div class="reveal">
+    <div class="section-label">Final Year Project</div>
+    <h2 class="section-title">Bio-Inspired ROV Thruster</h2>
+  </div>
+
+  <div class="fyp-hero-card reveal">
+    <div class="fyp-badge">First Class FYP · IEEE Publication In Progress</div>
+    <div class="fyp-title-big">Design of a Bio-Inspired<br>Thruster for Remotely<br>Operated Vehicles</div>
+    <p style="color:var(--muted); font-size:15px; max-width: 680px; line-height:1.8;">
+      A fully self-designed, fabricated, coded, and pool-tested underwater propulsion system inspired by seahorse locomotion — integrating seven engineering disciplines in a single final year project that my supervisor considered near-impossible to complete on time.
+    </p>
+    <div class="fyp-meta-row">
+      <div class="fyp-meta-chip">Coventry University · Singapore</div>
+      <div class="fyp-meta-chip">Dec 2024 – Mar 2025</div>
+      <div class="fyp-meta-chip">Solo Project</div>
+      <div class="fyp-meta-chip">Prototype Tested</div>
+    </div>
+  </div>
+
+  <!-- Discipline Grid -->
+  <div class="section-label reveal" style="margin-bottom: 16px;">Engineering Disciplines Covered</div>
+  <div class="discipline-grid reveal">
+    <div class="discipline-card">
+      <span class="disc-icon">🧱</span>
+      <div class="disc-name">Structural Analysis (FEA)</div>
+      <div class="disc-detail">ANSYS simulation of PVC frame under thrust load. Defined real boundary conditions, mesh refinement, and material properties.</div>
+      <div class="disc-result">▸ Von Mises 19 MPa · Displacement &lt;1mm · Strain 0.7%</div>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">🌊</span>
+      <div class="disc-name">Fluid Dynamics (CFD)</div>
+      <div class="disc-detail">Turbulent k-ε model in ANSYS Fluent. Modelled oscillating fin motion and analysed thrust generation and vortex shedding.</div>
+      <div class="disc-result">▸ 4.57N per fin · 1.72 m/s fin velocity · Organised vortices</div>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">⚙️</span>
+      <div class="disc-name">Mechanical Design</div>
+      <div class="disc-detail">Full mechanical linkage design: 4× DS15MG-180 waterproof servos, PVC frame, custom crank-rocker mechanism for oscillation.</div>
+      <div class="disc-result">▸ SolidWorks CAD · 3D-printed components</div>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">💻</span>
+      <div class="disc-name">Embedded Systems & Control</div>
+      <div class="disc-detail">Custom Arduino C++ code generating sinusoidal PWM signals with phase offsets. Differential thrust for turning. Timed mission sequences.</div>
+      <div class="disc-result">▸ Arduino UNO · Servo PID · Autonomous sequences</div>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">🛡️</span>
+      <div class="disc-name">Waterproofing & Packaging</div>
+      <div class="disc-detail">DIY pressure housing design for electronics. O-ring sealing, cable management, buoyancy adjustment using foam ballast.</div>
+      <div class="disc-result">▸ Pool-tested sealed — zero water ingress</div>
+    </div>
+    <div class="discipline-card">
+      <span class="disc-icon">🔬</span>
+      <div class="disc-name">Reliability (FMEA) & Mfg (DFMA)</div>
+      <div class="disc-detail">Systematic failure mode analysis and manufacturing analysis. Risk mitigation reduced RPNs significantly across all failure modes.</div>
+      <div class="disc-result">▸ Motor RPN: 240→96 · Waterproofing: 315→108 · MCI 60.81</div>
+    </div>
+  </div>
+
+  <!-- Results Grid -->
+  <div class="section-label reveal" style="margin-bottom: 16px; margin-top: 48px;">Key Results & Performance Data</div>
+  <div class="results-grid reveal">
+    <div class="result-card">
+      <div class="result-card-title">📐 FEA Results (ANSYS Structural)</div>
+      <div class="result-row"><span class="result-key">Max Von Mises Stress</span><span class="result-val">19 MPa</span></div>
+      <div class="result-row"><span class="result-key">PVC Yield Strength</span><span class="result-val">50 MPa</span></div>
+      <div class="result-row"><span class="result-key">Safety Factor</span><span class="result-val">2.6×</span></div>
+      <div class="result-row"><span class="result-key">Max Displacement</span><span class="result-val">&lt;1 mm</span></div>
+      <div class="result-row"><span class="result-key">Max Strain</span><span class="result-val">0.7%</span></div>
+      <div class="result-row"><span class="result-key">Verdict</span><span class="result-val normal" style="color:var(--hot)">✓ Structurally Safe</span></div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-title">💧 CFD Results (Turbulent k-ε)</div>
+      <div class="result-row"><span class="result-key">Thrust Per Fin</span><span class="result-val">4.57 N</span></div>
+      <div class="result-row"><span class="result-key">Total System Thrust</span><span class="result-val">~10 N</span></div>
+      <div class="result-row"><span class="result-key">Peak Fin Velocity</span><span class="result-val">1.72 m/s</span></div>
+      <div class="result-row"><span class="result-key">Flow Pattern</span><span class="result-val normal" style="color:var(--hot)">Organised Vortices</span></div>
+      <div class="result-row"><span class="result-key">Convergence</span><span class="result-val normal">Achieved</span></div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-title">🏊 Physical Pool Test Results</div>
+      <div class="result-row"><span class="result-key">Tested Speed @ 1.2 Hz</span><span class="result-val">7.6 cm/s</span></div>
+      <div class="result-row"><span class="result-key">Projected Speed @ 5 Hz</span><span class="result-val">12 cm/s</span></div>
+      <div class="result-row"><span class="result-key">Buoyancy</span><span class="result-val normal" style="color:var(--hot)">✓ Neutral</span></div>
+      <div class="result-row"><span class="result-key">Turning Capability</span><span class="result-val normal" style="color:var(--hot)">✓ Demonstrated</span></div>
+      <div class="result-row"><span class="result-key">Waterproofing</span><span class="result-val normal" style="color:var(--hot)">✓ Validated</span></div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-title">🏭 FMEA Risk Reduction</div>
+      <div class="result-row"><span class="result-key">Motor Failure RPN</span><span class="result-val">240 → 96</span></div>
+      <div class="result-row"><span class="result-key">Waterproofing RPN</span><span class="result-val">315 → 108</span></div>
+      <div class="result-row"><span class="result-key">Buoyancy RPN</span><span class="result-val">140 → 63</span></div>
+      <div class="result-row"><span class="result-key">DFMA MCI Index</span><span class="result-val">60.81</span></div>
+      <div class="result-row"><span class="result-key">Design Efficiency</span><span class="result-val">28.6%</span></div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top: 32px; padding: 24px; border: 1px solid var(--border); background: var(--panel);">
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <div style="font-size: 24px;">📄</div>
+      <div>
+        <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; color: var(--white); text-transform: uppercase;">IEEE Publication In Progress</div>
+        <div style="font-size: 14px; color: var(--muted); margin-top: 4px;">Research paper documenting the bio-inspired propulsion system design, simulation methodology, and experimental validation results.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS & PROFICIENCY -->
+<section id="skills" class="skills-section">
+  <div class="skills-inner">
+    <div class="reveal">
+      <div class="section-label">Proficiency</div>
+      <h2 class="section-title">Engineering Disciplines</h2>
+    </div>
+
+    <div class="proficiency-grid">
+      <div class="prof-domain reveal">
+        <div class="prof-domain-name">Mechanical Design & Analysis</div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">SolidWorks CAD</span><span class="skill-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill hot-fill" data-width="90"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">FEA (ANSYS Structural)</span><span class="skill-pct">82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill hot-fill" data-width="82"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">CFD (ANSYS Fluent, k-ε)</span><span class="skill-pct">78%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">FMEA / DFMA</span><span class="skill-pct">80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Stress & Dynamic Analysis</span><span class="skill-pct">78%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
+      </div>
+
+      <div class="prof-domain reveal">
+        <div class="prof-domain-name">Embedded Systems & Robotics</div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Arduino C++ (Control Systems)</span><span class="skill-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill hot-fill" data-width="85"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Servo / PWM Control</span><span class="skill-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill hot-fill" data-width="85"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Siemens PLC Programming</span><span class="skill-pct">72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Prototype Fabrication</span><span class="skill-pct">88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill hot-fill" data-width="88"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">MATLAB / Analytical Modelling</span><span class="skill-pct">72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div></div>
+      </div>
+
+      <div class="prof-domain reveal">
+        <div class="prof-domain-name">Petroleum & Field Engineering</div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Downhole Tools & Well Diagnostics</span><span class="skill-pct">80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Echometer / Dynamometer Ops</span><span class="skill-pct">75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Drilling & Production Engineering</span><span class="skill-pct">75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Offshore Systems Knowledge</span><span class="skill-pct">78%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">HSE / Field Safety Procedures</span><span class="skill-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+      </div>
+
+      <div class="prof-domain reveal">
+        <div class="prof-domain-name">Software & Data Tools</div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Microsoft Office Suite</span><span class="skill-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill hot-fill" data-width="90"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Technical Documentation</span><span class="skill-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill hot-fill" data-width="90"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">3D Printing (FDM)</span><span class="skill-pct">82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="82"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Python</span><span class="skill-pct">55%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-header"><span class="skill-name">Power BI</span><span class="skill-pct">45%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="45"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="achievements-section">
+  <div class="reveal">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title">Achievements</h2>
+  </div>
+  <div class="ach-grid reveal">
+    <div class="ach-card">
+      <div class="ach-number">01</div>
+      <span class="ach-icon">🏆</span>
+      <div class="ach-title">Top Graduate 2025</div>
+      <div class="ach-body">Awarded Top Graduate 2025 by Coventry University / PSB Academy Singapore — highest recognition for academic excellence in the cohort.</div>
+      <span class="ach-tag">Coventry University</span>
+    </div>
+    <div class="ach-card">
+      <div class="ach-number">02</div>
+      <span class="ach-icon">🤿</span>
+      <div class="ach-title">Woodside ROV Challenge Winner</div>
+      <div class="ach-body">ROV Co-Pilot &amp; Hardware Head in the winning team. Tasks included valve isolation, immersed sea mine removal, subsea equipment retrieval, and flange dimensional measurement.</div>
+      <span class="ach-tag">Woodside Energy</span>
+    </div>
+    <div class="ach-card">
+      <div class="ach-number">03</div>
+      <span class="ach-icon">📡</span>
+      <div class="ach-title">IEEE Publication In Progress</div>
+      <div class="ach-body">Research paper on bio-inspired sinusoidal fin propulsion for ROVs currently being prepared for IEEE journal submission, based on FYP results.</div>
+      <span class="ach-tag">IEEE · In Progress</span>
+    </div>
+    <div class="ach-card">
+      <div class="ach-number">04</div>
+      <span class="ach-icon">🎓</span>
+      <div class="ach-title">First Class Honours · GPA 3.8</div>
+      <div class="ach-body">Achieved First Class Honours in Mechanical Engineering after restarting career from scratch following the 2021 Myanmar coup. Two-year degree completed in Singapore.</div>
+      <span class="ach-tag">Coventry University · 2025</span>
+    </div>
+    <div class="ach-card">
+      <div class="ach-number">05</div>
+      <span class="ach-icon">🛢️</span>
+      <div class="ach-title">Industry Field Internship</div>
+      <div class="ach-body">6-month onsite internship at MPRL E&P in Myanmar's Mann Oil &amp; Gas Field. Operated Echometer &amp; dynamometer, inspected downhole tools, presented on pumping unit operations.</div>
+      <span class="ach-tag">MPRL E&P · 2019</span>
+    </div>
+    <div class="ach-card">
+      <div class="ach-number">06</div>
+      <span class="ach-icon">🏫</span>
+      <div class="ach-title">SPE Student Chapter President</div>
+      <div class="ach-body">Served as Vice President (2020) then President (2021) of the Society of Petroleum Engineers student chapter at YTU Myanmar. Organised technical talks and knowledge-sharing events.</div>
+      <span class="ach-tag">SPE · YTU Myanmar</span>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs-section">
+  <div class="certs-inner reveal">
+    <div class="section-label">Certifications</div>
+    <h2 class="section-title" style="margin-bottom: 0;">Industry Training</h2>
+    <div class="certs-list">
+      <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-text">OSH Safety Training</div><div class="cert-issuer">Peace Myanmar Electric · 2017</div></div></div>
+      <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-text">Petrophysics: Core Analysis</div><div class="cert-issuer">Total E&P · 2018</div></div></div>
+      <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-text">Well Activities — Completion &amp; Servicing</div><div class="cert-issuer">Total E&P · 2019</div></div></div>
+      <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-text">Offshore Field Development Concept &amp; Facilities</div><div class="cert-issuer">Total E&P · 2019</div></div></div>
+      <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-text">Google AI Essentials</div><div class="cert-issuer">Google · 2024</div></div></div>
+      <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-text">Leadership Challenge: Sentosa</div><div class="cert-issuer">Camp Challenge × PSB Academy · 2024</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-tagline">Ready for the<br><em>Right First Step.</em></div>
+        <div class="contact-desc">
+          I'm actively looking for my first role in offshore, subsea, or marine engineering. If you're building something underwater, working with ROVs, subsea systems, or offshore structures — I want to be part of that team.
+        </div>
+        <a href="mailto:aungkyawkyaw98@gmail.com" class="btn btn-primary">Send Email</a>
+      </div>
+      <div class="contact-links reveal">
+        <a href="mailto:aungkyawkyaw98@gmail.com" class="contact-link">
+          <div class="contact-link-icon">✉️</div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value">aungkyawkyaw98@gmail.com</span>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+        <a href="https://www.linkedin.com/in/aung-kyaw-kyaw-29493235b" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">💼</div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-value">Aung Kyaw Kyaw</span>
+          </div>
+          <div class="contact-link-arrow">→</div>
+        </a>
+        <div class="contact-link" style="cursor: default;">
+          <div class="contact-link-icon">📍</div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">Location</span>
+            <span class="contact-link-value">Singapore · Open to relocation</span>
+          </div>
+        </div>
+        <div class="contact-link" style="cursor: default;">
+          <div class="contact-link-icon">🌏</div>
+          <div class="contact-link-text">
+            <span class="contact-link-label">Languages</span>
+            <span class="contact-link-value">English (IELTS 7.5) · Burmese (Native)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2025 Aung Kyaw Kyaw · Mechanical &amp; Subsea Engineer</div>
+  <div class="footer-status">
+    <div class="status-dot"></div>
+    Open to Opportunities
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// Skill bar animation
+const skillBars = document.querySelectorAll('.skill-bar-fill');
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target;
+      const width = bar.getAttribute('data-width');
+      setTimeout(() => { bar.style.width = width + '%'; }, 200);
+      barObserver.unobserve(bar);
+    }
+  });
+}, { threshold: 0.5 });
+
+skillBars.forEach(bar => barObserver.observe(bar));
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 100) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.style.color = link.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+  });
+});
+</script>
+</body>
+</html>
